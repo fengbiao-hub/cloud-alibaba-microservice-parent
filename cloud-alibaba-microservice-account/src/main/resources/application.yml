@@ -1,3 +1,4 @@
 spring:
   profiles:
-    active: cluster1
+    active: cluster1  cloud:    nacos:      discovery:        server-addr: 192.168.220.129:18848
+management:  endpoints:    web:      exposure:        include: "*"
