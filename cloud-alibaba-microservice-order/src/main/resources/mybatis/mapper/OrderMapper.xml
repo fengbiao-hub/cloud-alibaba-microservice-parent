@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prev.fengb.cloud.order.mapper.OrderMapper">
+	<!-- 结果集 -->
+	<resultMap type="Order" id="OrderResultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="productId" column="product_id" />
+		<result property="count" column="count" />
+		<result property="money" column="money" />
+		<result property="status" column="status" />
+	</resultMap>
+
+	<sql id="selectVO">
+		SELECT id, user_id, product_id, count, money, status FROM
+		`order`
+	</sql>
+
+	<select id="list" resultMap="OrderResultMap">
+		<include refid="selectVO"></include>
+	</select>
+
+	<select id="getById" parameterType="String"
+		resultMap="OrderResultMap">
+		<include refid="selectVO"></include>
+		WHERE id = #{id}
+	</select>
+
+	<insert id="add" parameterType="Order">
+		INSERT INTO `order`(id, user_id,
+		product_id, count, money, status) VALUES (#{id}, #{userId},
+		#{productId}, #{count}, #{money}, 0)
+	</insert>
+
+	<update id="update" parameterType="Order">
+		UPDATE `order`
+		<set>
+			<if test="userId != null">user_id = #{userId},</if>
+			<if test="productId != null">product_id = #{productId},</if>
+			<if test="count != null">count = #{count},</if>
+			<if test="money != null">money = #{money},</if>
+			<if test="status != null">status = #{status},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM `order`
+		WHERE id =
+		#{id}
+	</delete>
+</mapper>

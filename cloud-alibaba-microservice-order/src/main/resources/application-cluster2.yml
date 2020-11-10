@@ -1,0 +1,12 @@
+#订单微服务-节点2配置文件
+server:  port: 7002
+spring:  application:    name: order #应用名
+  datasource:    url: jdbc:mysql://192.168.220.129:33066/cloud_order
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+mybatis:  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: prev.fengb.cloud.commons.model
+logging:  level:    prev.fengb.cloud.order.mapper: debug
