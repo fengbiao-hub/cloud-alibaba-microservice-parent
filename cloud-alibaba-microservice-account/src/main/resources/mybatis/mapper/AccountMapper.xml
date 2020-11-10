@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prev.fengb.cloud.account.mapper.AccountMapper">
+	<!-- 结果集 -->
+	<resultMap type="Account" id="AccountResultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="total" column="total" />
+	</resultMap>
+
+	<sql id="selectVO">
+		SELECT id, user_id, total FROM account
+	</sql>
+
+	<select id="list" resultMap="AccountResultMap">
+		<include refid="selectVO"></include>
+	</select>
+
+	<select id="getByUserId" parameterType="String"
+		resultMap="AccountResultMap">
+		<include refid="selectVO"></include>
+		WHERE user_id = #{userId}
+	</select>
+
+	<insert id="add" parameterType="Account">
+		INSERT INTO account(id, user_id,
+		total) VALUES (#{id}, #{userId}, #{total})
+	</insert>
+
+	<update id="update" parameterType="Account">
+		UPDATE account
+		<set>
+			<if test="userId != null">user_id = #{userId},</if>
+			<if test="total != null">total = #{total},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<update id="updateByUserId" parameterType="Account">
+		UPDATE account
+		SET
+		total = #{total}
+		WHERE user_id = #{userId}
+	</update>
+
+	<delete id="delete" parameterType="String">
+		DELETE FROM account WHERE
+		user_id = #{userId}
+	</delete>
+</mapper>

@@ -1,0 +1,12 @@
+#账户微服务-节点1配置文件
+server:  port: 8001
+spring:  application:    name: account #应用名
+  datasource:    url: jdbc:mysql://192.168.220.129:33066/cloud_account
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+mybatis:  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: prev.fengb.cloud.commons.model
+logging:  level:    prev.fengb.cloud.account.mapper: debug
